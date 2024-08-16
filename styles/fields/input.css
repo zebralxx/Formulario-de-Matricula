@@ -1,55 +1,98 @@
-label + radio-wrapper {
-  margin-top: 1rem;
+input,
+textarea,
+select {
+    appearance: none;
+    width: 100%;
+    border-radius: .5rem;
+    border: 1px solid var(--stroke-default);
+
+    padding: .75rem 1rem;
+
+    font: var(--text)
 }
 
-.radio-wrapper {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
-  gap: 1rem;
+label {
+    font: var(--text-sm);
+    color: var(--text-secondary);
+
+    display: block;
+    margin-bottom: .25rem;
 }
 
-.radio-inner {
-  border: 1px solid var(--stroke-default);
-  border-radius: .5rem;
-
-  display: grid;
-  justify-items: center;
-  gap: .5rem;
-
-  padding: 2rem .5rem .5rem;
-
-  position: relative;
-  & input,
-  & input:focus,
-  & input:hover {
-    all: unset;
-    position: absolute;
-    inset: 0;
-  }
-
-  .radio-image {
-    background-image: url(../../assets/icons/radio-default.svg);
-
-    width: 1.5rem;
-    height: 1.5rem;
-
-    position: absolute;
-    top: .5rem;
-    left: .5rem;
-  }
-&:hover, &:focus-within {
-  border: 1px solid var(--stroke-highlight);
-
-  & .radio-image {
-    background-image: url(../../assets/icons/radio-hover.svg);
-  }
+input:focus,
+select:focus,
+textarea:focus,
+input[type="date"]:focus-within {
+    outline: .25rem solid var(--surface-secondary);
+    border: .125rem solid var(--stroke-highlight);
+    outline-offset: .1px;
 }
 
-&:has(:checked) {
-  border: 2px solid var(--stroke-highlight);
+input[type="date"] {
+    position: relative;
 
-  & .radio-image {
-    background-image: url(../../assets/icons/radio-checked.svg);
-  }
+    &::-webkit-calendar-picker-indicator {
+        opacity: 0;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        background: url(../../assets/icons/calendar-03.svg) center/contain;
+        right: 1rem;
+        width: 1.25rem;
+        height: 1.25rem;
+
+        top: 50%;
+        transform: translateY(-50%);
+    }
 }
+
+select {
+    background: url(../../assets/icons/arrow-down-01.svg) no-repeat calc(100% - 1rem);
+}
+
+.address .flex {
+    gap: 1.25rem;
+}
+
+.input-wrapper:has([disabled]) {
+    opacity: .5;
+}
+
+input {
+    &[disabled] {
+        background-color: var(--surface-disabled);
+
+        border: 1px solid var(--stroke-default);
+
+        color: var(--text-primary);
+    }
+
+    &:invalid {
+        border: 0.125rem solid var(--semantic-error);
+    }
+
+    &+small {
+        font: var(--text-sm);
+        color: #78716C;
+
+        display: inline-block;
+        margin-top: .25rem;
+    }
+
+    &[required]+.error {
+        display: flex;
+        align-items: center;
+        gap: .25rem;
+
+        font: var(--text-sm);
+        color: var(--semantic-error);
+
+        margin-top: .25rem;
+    }
+
+    &:not(:focus):valid+.error {
+        display: none;
+    }
 }
